@@ -114,8 +114,8 @@ public class ContactoSimService implements InterfazContactoSim {
         ds.setAnchoTablero(ancho);
 
         Map<Integer, List<Punto>> puntos = new HashMap<>();
-
         int maxTiempo = 0;
+
         for (int i = 1; i < lineas.length; i++) {
             String linea = lineas[i].trim();
             if (linea.isEmpty()) continue;
@@ -134,10 +134,16 @@ public class ContactoSimService implements InterfazContactoSim {
             }
         }
 
+        // Asegurarse de que todos los tiempos tienen una lista
+        for (int t = 0; t <= maxTiempo; t++) {
+            puntos.putIfAbsent(t, new ArrayList<>());
+        }
+
         ds.setPuntos(puntos);
         ds.setMaxSegundos(maxTiempo + 1);
         return ds;
     }
+   
 
     @Override
     public List<Entidad> getEntities() {
