@@ -1,0 +1,371 @@
+openapi: 3.0.4
+info:
+  title: ServicioConsumible
+  version: "1.0"
+servers:
+- url: /
+tags:
+- name: Email
+- name: Resultados
+- name: Solicitud
+paths:
+  /Email:
+    post:
+      parameters:
+      - explode: true
+        in: query
+        name: emailAddress
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: message
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "201":
+          content:
+            text/plain:
+              schema:
+                $ref: "#/components/schemas/EmailResponse"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmailResponse"
+            text/json:
+              schema:
+                $ref: "#/components/schemas/EmailResponse"
+          description: Created
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+            text/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+          description: Bad Request
+      tags:
+      - Email
+      x-accepts:
+      - application/json
+      - text/json
+      - text/plain
+  /Resultados:
+    post:
+      parameters:
+      - explode: true
+        in: query
+        name: nombreUsuario
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: tok
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "201":
+          content:
+            text/plain:
+              schema:
+                $ref: "#/components/schemas/ResultsResponse"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResultsResponse"
+            text/json:
+              schema:
+                $ref: "#/components/schemas/ResultsResponse"
+          description: Created
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+            text/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+          description: Bad Request
+      tags:
+      - Resultados
+      x-accepts:
+      - application/json
+      - text/json
+      - text/plain
+  /Solicitud/Solicitar:
+    post:
+      parameters:
+      - explode: true
+        in: query
+        name: nombreUsuario
+        required: false
+        schema:
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Solicitud"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/Solicitud"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/Solicitud"
+      responses:
+        "201":
+          content:
+            text/plain:
+              schema:
+                $ref: "#/components/schemas/SolicitudResponse"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SolicitudResponse"
+            text/json:
+              schema:
+                $ref: "#/components/schemas/SolicitudResponse"
+          description: Created
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+            text/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+          description: Bad Request
+      tags:
+      - Solicitud
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+      - text/json
+      - text/plain
+  /Solicitud/GetSolicitudesUsuario:
+    get:
+      parameters:
+      - explode: true
+        in: query
+        name: nombreUsuario
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "201":
+          content:
+            text/plain:
+              schema:
+                items:
+                  format: int32
+                  type: integer
+                type: array
+            application/json:
+              schema:
+                items:
+                  format: int32
+                  type: integer
+                type: array
+            text/json:
+              schema:
+                items:
+                  format: int32
+                  type: integer
+                type: array
+          description: Created
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+            text/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+          description: Bad Request
+      tags:
+      - Solicitud
+      x-accepts:
+      - application/json
+      - text/json
+      - text/plain
+  /Solicitud/ComprobarSolicitud:
+    get:
+      parameters:
+      - explode: true
+        in: query
+        name: nombreUsuario
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: tok
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "201":
+          content:
+            text/plain:
+              schema:
+                items:
+                  format: int32
+                  type: integer
+                type: array
+            application/json:
+              schema:
+                items:
+                  format: int32
+                  type: integer
+                type: array
+            text/json:
+              schema:
+                items:
+                  format: int32
+                  type: integer
+                type: array
+          description: Created
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+            text/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+          description: Bad Request
+      tags:
+      - Solicitud
+      x-accepts:
+      - application/json
+      - text/json
+      - text/plain
+components:
+  schemas:
+    EmailResponse:
+      additionalProperties: false
+      example:
+        errorMessage: errorMessage
+        done: true
+      properties:
+        done:
+          type: boolean
+        errorMessage:
+          nullable: true
+          type: string
+      type: object
+    ProblemDetails:
+      additionalProperties: {}
+      example:
+        instance: instance
+        detail: detail
+        type: type
+        title: title
+        status: 0
+      properties:
+        type:
+          nullable: true
+          type: string
+        title:
+          nullable: true
+          type: string
+        status:
+          format: int32
+          nullable: true
+          type: integer
+        detail:
+          nullable: true
+          type: string
+        instance:
+          nullable: true
+          type: string
+      type: object
+    ResultsResponse:
+      additionalProperties: false
+      example:
+        data: data
+        tokenSolicitud: 0
+        errorMessage: errorMessage
+        done: true
+      properties:
+        done:
+          type: boolean
+        tokenSolicitud:
+          format: int32
+          type: integer
+        errorMessage:
+          nullable: true
+          type: string
+        data:
+          nullable: true
+          type: string
+      type: object
+    Solicitud:
+      additionalProperties: false
+      example:
+        nombreEntidades:
+        - nombreEntidades
+        - nombreEntidades
+        cantidadesIniciales:
+        - 0
+        - 0
+      properties:
+        cantidadesIniciales:
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+        nombreEntidades:
+          items:
+            type: string
+          nullable: true
+          type: array
+      type: object
+    SolicitudResponse:
+      additionalProperties: false
+      example:
+        data: true
+        tokenSolicitud: 0
+        errorMessage: errorMessage
+        done: true
+      properties:
+        done:
+          type: boolean
+        tokenSolicitud:
+          format: int32
+          type: integer
+        errorMessage:
+          nullable: true
+          type: string
+        data:
+          type: boolean
+      type: object
+
